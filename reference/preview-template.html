@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{BRAND_NAME}} — Design Preview</title>
+<style>
+  /*
+   * Token substitution guide (replace each {{TOKEN}} with the extracted value).
+   * For preview-dark.html, swap the four SURFACE tokens and the four TEXT tokens.
+   *
+   *   COLOR_BG             page background
+   *   COLOR_SURFACE        card / panel background
+   *   COLOR_SURFACE_ALT    secondary card / hover surface
+   *   COLOR_BORDER         default border
+   *
+   *   COLOR_HEADING        primary heading text
+   *   COLOR_LABEL          form labels, secondary headings
+   *   COLOR_BODY           body text
+   *   COLOR_MUTED          captions, metadata
+   *
+   *   COLOR_PRIMARY        brand / CTA
+   *   COLOR_PRIMARY_HOVER  CTA hover
+   *   COLOR_PRIMARY_SOFT   tinted background for subdued hover
+   *   COLOR_ACCENT         secondary accent
+   *   COLOR_SUCCESS        success badge bg (rgba ok)
+   *   COLOR_SUCCESS_TEXT   success badge text
+   *
+   *   FONT_PRIMARY         stack, e.g. "sohne-var, 'SF Pro Display', sans-serif"
+   *   FONT_MONO            monospace stack
+   *   FONT_FEATURES        e.g. "ss01"
+   *
+   *   RADIUS_SM            small radius, e.g. 4px
+   *   RADIUS_MD            medium, e.g. 6px
+   *   RADIUS_LG            large, e.g. 8px
+   *
+   *   SHADOW_CARD          card shadow formula
+   *   SHADOW_ELEVATED      elevated shadow formula
+   *
+   *   HERO_SIZE            e.g. 56px
+   *   HERO_WEIGHT          e.g. 300
+   *   HERO_TRACKING        e.g. -1.4px
+   *   HERO_LINEHEIGHT      e.g. 1.03
+   */
+  :root {
+    --bg: {{COLOR_BG}};
+    --surface: {{COLOR_SURFACE}};
+    --surface-alt: {{COLOR_SURFACE_ALT}};
+    --border: {{COLOR_BORDER}};
+    --heading: {{COLOR_HEADING}};
+    --label: {{COLOR_LABEL}};
+    --body: {{COLOR_BODY}};
+    --muted: {{COLOR_MUTED}};
+    --primary: {{COLOR_PRIMARY}};
+    --primary-hover: {{COLOR_PRIMARY_HOVER}};
+    --primary-soft: {{COLOR_PRIMARY_SOFT}};
+    --accent: {{COLOR_ACCENT}};
+    --success: {{COLOR_SUCCESS}};
+    --success-text: {{COLOR_SUCCESS_TEXT}};
+    --radius-sm: {{RADIUS_SM}};
+    --radius-md: {{RADIUS_MD}};
+    --radius-lg: {{RADIUS_LG}};
+    --shadow-card: {{SHADOW_CARD}};
+    --shadow-elevated: {{SHADOW_ELEVATED}};
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--body);
+    font-family: {{FONT_PRIMARY}};
+    font-feature-settings: "{{FONT_FEATURES}}";
+    -webkit-font-smoothing: antialiased;
+    font-weight: 300;
+  }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  /* --- Navigation --- */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    margin-bottom: 48px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+  nav .logo {
+    color: var(--heading);
+    font-weight: 500;
+    font-size: 18px;
+  }
+  nav .links { display: flex; gap: 24px; }
+  nav .links a {
+    color: var(--heading);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  /* --- Hero --- */
+  .hero { padding: 72px 0 48px; }
+  .hero h1 {
+    color: var(--heading);
+    font-size: {{HERO_SIZE}};
+    font-weight: {{HERO_WEIGHT}};
+    line-height: {{HERO_LINEHEIGHT}};
+    letter-spacing: {{HERO_TRACKING}};
+    margin: 0 0 24px;
+    max-width: 18ch;
+  }
+  .hero p {
+    font-size: 18px;
+    line-height: 1.4;
+    max-width: 56ch;
+    color: var(--muted);
+    margin: 0 0 32px;
+  }
+
+  /* --- Buttons --- */
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    font-feature-settings: "{{FONT_FEATURES}}";
+    cursor: pointer;
+    transition: background 120ms ease, color 120ms ease;
+    border: 1px solid transparent;
+    text-decoration: none;
+  }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-primary:hover { background: var(--primary-hover); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--primary);
+    border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+  }
+  .btn-ghost:hover { background: var(--primary-soft); }
+
+  /* --- Typography scale --- */
+  .section-title {
+    color: var(--heading);
+    font-size: 32px;
+    font-weight: 300;
+    letter-spacing: -0.64px;
+    line-height: 1.1;
+    margin: 64px 0 24px;
+  }
+  .type-scale { display: grid; gap: 12px; }
+  .type-scale .row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 24px;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .type-scale .meta { color: var(--muted); font-size: 12px; }
+  .type-scale .t-hero {
+    color: var(--heading);
+    font-size: {{HERO_SIZE}};
+    font-weight: {{HERO_WEIGHT}};
+    letter-spacing: {{HERO_TRACKING}};
+    line-height: {{HERO_LINEHEIGHT}};
+  }
+  .type-scale .t-h2 { color: var(--heading); font-size: 32px; font-weight: 300; letter-spacing: -0.64px; }
+  .type-scale .t-h3 { color: var(--heading); font-size: 22px; font-weight: 300; letter-spacing: -0.22px; }
+  .type-scale .t-body { color: var(--body); font-size: 16px; font-weight: 300; line-height: 1.4; }
+  .type-scale .t-caption { color: var(--muted); font-size: 12px; }
+  .type-scale .t-code { font-family: {{FONT_MONO}}; font-size: 12px; line-height: 2; }
+
+  /* --- Color swatches --- */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+  .swatch {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 12px;
+  }
+  .swatch .chip {
+    width: 100%;
+    height: 56px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .swatch .name { color: var(--heading); font-size: 14px; font-weight: 400; }
+  .swatch .hex { color: var(--muted); font-size: 12px; font-family: {{FONT_MONO}}; }
+
+  /* --- Card --- */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+  }
+  .card h3 {
+    color: var(--heading);
+    font-size: 22px;
+    font-weight: 300;
+    letter-spacing: -0.22px;
+    margin: 0 0 12px;
+  }
+  .card p { color: var(--body); font-size: 16px; font-weight: 300; line-height: 1.4; margin: 0 0 16px; }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 11px;
+    font-weight: 400;
+    background: var(--success);
+    color: var(--success-text);
+    border: 1px solid color-mix(in srgb, var(--success-text) 40%, transparent);
+  }
+
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 32px; letter-spacing: -0.6px; }
+    .wrap { padding: 24px 16px 64px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <nav>
+      <div class="logo">{{BRAND_NAME}}</div>
+      <div class="links">
+        <a href="#">Products</a>
+        <a href="#">Pricing</a>
+        <a href="#">Docs</a>
+      </div>
+      <a class="btn btn-primary" href="#">Start now</a>
+    </nav>
+
+    <section class="hero">
+      <h1>{{HERO_HEADLINE}}</h1>
+      <p>{{HERO_SUBTITLE}}</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#">Primary action</a>
+        <a class="btn btn-ghost" href="#">Secondary action</a>
+      </div>
+    </section>
+
+    <h2 class="section-title">Typography</h2>
+    <div class="type-scale">
+      <div class="row"><span class="meta">Display Hero</span><span class="t-hero">The whisper of a giant</span></div>
+      <div class="row"><span class="meta">Section Heading</span><span class="t-h2">A confident second voice</span></div>
+      <div class="row"><span class="meta">Sub-heading</span><span class="t-h3">Ideas at a human scale</span></div>
+      <div class="row"><span class="meta">Body</span><span class="t-body">The quick brown fox jumps over the lazy dog, settling into a rhythm of balanced measure.</span></div>
+      <div class="row"><span class="meta">Caption</span><span class="t-caption">Small print — dates, metadata, fine details.</span></div>
+      <div class="row"><span class="meta">Code</span><span class="t-code">const token = "design.md";</span></div>
+    </div>
+
+    <h2 class="section-title">Color Palette</h2>
+    <div class="swatches">
+      <div class="swatch"><div class="chip" style="background: var(--primary)"></div><div class="name">Primary</div><div class="hex">{{COLOR_PRIMARY}}</div></div>
+      <div class="swatch"><div class="chip" style="background: var(--primary-hover)"></div><div class="name">Primary Hover</div><div class="hex">{{COLOR_PRIMARY_HOVER}}</div></div>
+      <div class="swatch"><div class="chip" style="background: var(--accent)"></div><div class="name">Accent</div><div class="hex">{{COLOR_ACCENT}}</div></div>
+      <div class="swatch"><div class="chip" style="background: var(--heading)"></div><div class="name">Heading</div><div class="hex">{{COLOR_HEADING}}</div></div>
+      <div class="swatch"><div class="chip" style="background: var(--body)"></div><div class="name">Body</div><div class="hex">{{COLOR_BODY}}</div></div>
+      <div class="swatch"><div class="chip" style="background: var(--muted)"></div><div class="name">Muted</div><div class="hex">{{COLOR_MUTED}}</div></div>
+      <div class="swatch"><div class="chip" style="background: var(--border)"></div><div class="name">Border</div><div class="hex">{{COLOR_BORDER}}</div></div>
+      <div class="swatch"><div class="chip" style="background: var(--surface)"></div><div class="name">Surface</div><div class="hex">{{COLOR_SURFACE}}</div></div>
+    </div>
+
+    <h2 class="section-title">Components</h2>
+    <div class="grid-3">
+      <div class="card">
+        <h3>Feature one</h3>
+        <p>A short card explaining a feature of the product in the brand's own voice.</p>
+        <a class="btn btn-ghost" href="#">Learn more</a>
+      </div>
+      <div class="card">
+        <h3>Feature two</h3>
+        <p>Each card uses the standard shadow formula and a border from the neutral scale.</p>
+        <span class="badge">Available</span>
+      </div>
+      <div class="card">
+        <h3>Feature three</h3>
+        <p>The grid collapses to a single column below 640px. Shadow remains on all widths.</p>
+        <a class="btn btn-primary" href="#">Try it</a>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style Board — {{BRAND_NAME}}</title>
+<style>
+  :root {
+    --board-bg: #111113;
+    --card-bg: #1a1a1e;
+    --card-border: #2a2a2e;
+    --text-primary: #e8e8ec;
+    --text-secondary: #8a8a94;
+    --text-dim: #5a5a64;
+    --accent: {{BRAND_ACCENT_COLOR}};
+    --accent-muted: {{BRAND_ACCENT_COLOR}}22;
+    --tag-bg: #222226;
+    --tag-border: #333338;
+    --positive: #34c759;
+    --negative: #ff453a;
+    --neutral: #8a8a94;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', sans-serif;
+    background: var(--board-bg);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .board {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 48px 32px 96px;
+  }
+
+  /* ── Header ── */
+  .board-header {
+    margin-bottom: 64px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .board-header h1 {
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .board-header .subtitle {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 640px;
+  }
+  .board-header .atmosphere {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 4px 14px;
+    background: var(--accent-muted);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 64px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .section-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    max-width: 640px;
+    margin-bottom: 32px;
+  }
+
+  /* ── Screenshot Grid ── */
+  .screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 24px;
+  }
+  .screenshot-grid.single {
+    grid-template-columns: 1fr;
+    max-width: 960px;
+  }
+
+  /* ── Screenshot Card ── */
+  .screenshot-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .screenshot-card:hover {
+    border-color: #444448;
+  }
+  .screenshot-card.source {
+    border-color: var(--accent);
+  }
+
+  .screenshot-img-container {
+    position: relative;
+    background: #0a0a0c;
+    overflow: hidden;
+  }
+  .screenshot-img-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    max-height: 480px;
+  }
+  /* Placeholder when no screenshot is available */
+  .screenshot-placeholder {
+    width: 100%;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0e0e10;
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+
+  .screenshot-meta {
+    padding: 20px;
+  }
+  .screenshot-meta h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .screenshot-meta .url {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+    word-break: break-all;
+  }
+
+  /* ── DNA Tags ── */
+  .dna-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .dna-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  .dna-tag.shared {
+    border-color: var(--positive);
+    color: var(--positive);
+  }
+  .dna-tag.differs {
+    border-color: var(--negative);
+    color: var(--negative);
+  }
+  .dna-tag.anti {
+    border-color: var(--negative);
+    color: var(--negative);
+    background: #ff453a0a;
+  }
+
+  .annotation {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  .annotation strong {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  /* ── Lineage Timeline ── */
+  .lineage {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .lineage-node {
+    padding: 8px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+  .lineage-node.current {
+    border-color: var(--accent);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .lineage-arrow {
+    width: 32px;
+    height: 1px;
+    background: var(--card-border);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .lineage-arrow::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -3px;
+    width: 6px;
+    height: 6px;
+    border-right: 1px solid var(--card-border);
+    border-top: 1px solid var(--card-border);
+    transform: rotate(45deg);
+  }
+
+  /* ── Style Vocabulary ── */
+  .vocab-section {
+    margin-bottom: 32px;
+  }
+  .vocab-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+  .vocab-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .vocab-tag {
+    padding: 6px 14px;
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .vocab-tag.negative {
+    border-color: #ff453a44;
+    color: #ff453a;
+    text-decoration: line-through;
+    text-decoration-color: #ff453a66;
+  }
+  .vocab-tag.metaphor {
+    font-style: italic;
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-muted);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .screenshot-grid {
+      grid-template-columns: 1fr;
+    }
+    .board {
+      padding: 32px 16px 64px;
+    }
+    .board-header h1 {
+      font-size: 28px;
+    }
+    .lineage {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .lineage-arrow {
+      width: 1px;
+      height: 24px;
+      margin-left: 24px;
+    }
+    .lineage-arrow::after {
+      right: -3px;
+      top: auto;
+      bottom: 0;
+      transform: rotate(135deg);
+    }
+  }
+</style>
+</head>
+<body>
+<div class="board">
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- HEADER                                     -->
+  <!-- ══════════════════════════════════════════ -->
+  <header class="board-header">
+    <h1>Style Board — {{BRAND_NAME}}</h1>
+    <p class="subtitle">{{BRAND_SIGNATURE_TECHNIQUE}}</p>
+    <span class="atmosphere">{{BRAND_ATMOSPHERE}}</span>
+  </header>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- 1. DESIGN LINEAGE                          -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Design Lineage</div>
+    <h2 class="section-title">{{LINEAGE_TITLE}}</h2>
+    <p class="section-desc">{{LINEAGE_DESCRIPTION}}</p>
+
+    <div class="lineage">
+      <!-- Repeat lineage-node + lineage-arrow for each ancestor -->
+      <!-- LINEAGE_NODES_START -->
+      <div class="lineage-node">{{LINEAGE_ANCESTOR_1}}</div>
+      <div class="lineage-arrow"></div>
+      <div class="lineage-node">{{LINEAGE_ANCESTOR_2}}</div>
+      <div class="lineage-arrow"></div>
+      <div class="lineage-node">{{LINEAGE_ANCESTOR_3}}</div>
+      <div class="lineage-arrow"></div>
+      <div class="lineage-node current">{{BRAND_NAME}}</div>
+      <!-- LINEAGE_NODES_END -->
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- 2. SOURCE — THE BRAND ITSELF               -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Source</div>
+    <h2 class="section-title">{{BRAND_NAME}}</h2>
+    <p class="section-desc">The design system being documented. Screenshots captured at 1440px viewport.</p>
+
+    <div class="screenshot-grid single">
+      <div class="screenshot-card source">
+        <div class="screenshot-img-container">
+          <!-- Replace src with actual screenshot path -->
+          <img src="screenshots/source-desktop.png" alt="{{BRAND_NAME}} — desktop" />
+        </div>
+        <div class="screenshot-meta">
+          <h3>{{BRAND_NAME}} — Desktop</h3>
+          <div class="url">{{SOURCE_URL}}</div>
+          <div class="dna-tags">
+            <!-- KEY_CHARACTERISTICS_START -->
+            <span class="dna-tag">{{KEY_CHARACTERISTIC_1}}</span>
+            <span class="dna-tag">{{KEY_CHARACTERISTIC_2}}</span>
+            <span class="dna-tag">{{KEY_CHARACTERISTIC_3}}</span>
+            <span class="dna-tag">{{KEY_CHARACTERISTIC_4}}</span>
+            <span class="dna-tag">{{KEY_CHARACTERISTIC_5}}</span>
+            <!-- KEY_CHARACTERISTICS_END -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- 3. PEER REFERENCES                         -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Peer References</div>
+    <h2 class="section-title">Shared Design DNA</h2>
+    <p class="section-desc">Sites that share specific, nameable design traits with {{BRAND_NAME}}. Green tags mark shared DNA; red tags mark key differences.</p>
+
+    <div class="screenshot-grid">
+
+      <!-- PEER_CARDS_START — Repeat this block for each peer (3-5) -->
+      <div class="screenshot-card">
+        <div class="screenshot-img-container">
+          <img src="screenshots/peer-{{PEER_SLUG}}.png" alt="{{PEER_NAME}}" />
+          <!-- If screenshot fails, use: -->
+          <!-- <div class="screenshot-placeholder">Screenshot unavailable — visit {{PEER_URL}}</div> -->
+        </div>
+        <div class="screenshot-meta">
+          <h3>{{PEER_NAME}}</h3>
+          <div class="url">{{PEER_URL}}</div>
+          <div class="dna-tags">
+            <span class="dna-tag shared">{{SHARED_TRAIT}}</span>
+            <span class="dna-tag differs">{{KEY_DIFFERENCE}}</span>
+          </div>
+          <p class="annotation">{{PEER_ANNOTATION}}</p>
+        </div>
+      </div>
+      <!-- PEER_CARDS_END -->
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- 4. ANTI-REFERENCES                         -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Anti-References</div>
+    <h2 class="section-title">What {{BRAND_NAME}} Is Not</h2>
+    <p class="section-desc">Well-known design systems that represent the opposite approach. Understanding what a brand rejects sharpens understanding of what it embraces.</p>
+
+    <div class="screenshot-grid">
+
+      <!-- ANTI_CARDS_START — Repeat this block for each anti-reference (2-3) -->
+      <div class="screenshot-card">
+        <div class="screenshot-img-container">
+          <img src="screenshots/anti-{{ANTI_SLUG}}.png" alt="{{ANTI_NAME}}" />
+        </div>
+        <div class="screenshot-meta">
+          <h3>{{ANTI_NAME}}</h3>
+          <div class="url">{{ANTI_URL}}</div>
+          <div class="dna-tags">
+            <span class="dna-tag anti">{{REJECTED_TRAIT}}</span>
+          </div>
+          <p class="annotation">{{ANTI_ANNOTATION}}</p>
+        </div>
+      </div>
+      <!-- ANTI_CARDS_END -->
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- 5. STYLE VOCABULARY                        -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Style Vocabulary</div>
+    <h2 class="section-title">Prompt Keywords</h2>
+    <p class="section-desc">Words for prompting AI design tools (Midjourney, DALL-E, Figma AI). Positive keywords describe the brand; struck-through keywords describe what it is not.</p>
+
+    <div class="vocab-section">
+      <div class="vocab-label">Visual Adjectives</div>
+      <div class="vocab-tags">
+        <!-- VISUAL_ADJECTIVES_START -->
+        <span class="vocab-tag">{{ADJECTIVE}}</span>
+        <!-- VISUAL_ADJECTIVES_END -->
+      </div>
+    </div>
+
+    <div class="vocab-section">
+      <div class="vocab-label">Material Metaphors</div>
+      <div class="vocab-tags">
+        <!-- METAPHORS_START -->
+        <span class="vocab-tag metaphor">{{METAPHOR}}</span>
+        <!-- METAPHORS_END -->
+      </div>
+    </div>
+
+    <div class="vocab-section">
+      <div class="vocab-label">Spatial &amp; Motion</div>
+      <div class="vocab-tags">
+        <!-- SPATIAL_START -->
+        <span class="vocab-tag">{{SPATIAL}}</span>
+        <!-- SPATIAL_END -->
+      </div>
+    </div>
+
+    <div class="vocab-section">
+      <div class="vocab-label">Negative Keywords</div>
+      <div class="vocab-tags">
+        <!-- NEGATIVE_START -->
+        <span class="vocab-tag negative">{{NEGATIVE}}</span>
+        <!-- NEGATIVE_END -->
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
