@@ -52,6 +52,22 @@ The design_spec.md output **MUST** follow this template's structure exactly (Sec
 
 > **Execution discipline**: This is the last BLOCKING checkpoint in the pipeline (besides template selection). Once the user confirms, the AI must automatically complete the Design Specification & Content Outline and seamlessly proceed to subsequent image generation (if applicable), SVG generation, and post-processing — no additional questions or pauses in between.
 
+### Design Bridge Integration (when DESIGN.md is available)
+
+When a `design_spec_prefill.json` exists in the project directory, the following confirmations are **auto-filled** from the extracted design system:
+
+- **d. Style Objective** → from `style_objective` field
+- **e. Color Scheme** → from `color_scheme` field (use semantic names, apply hex values directly)
+- **f. Icon Usage** → from `icon_approach` field
+- **g. Typography Plan** → from `typography` field (use `heading_fallback` and `body_fallback` for PPT font selection)
+- **h. Image Strategy** → derived from `image_strategy` field
+
+**Remaining user confirmations**: a. Canvas Format, b. Page Count, c. Key Information (target audience).
+
+Present all 8 items as a bundled recommendation, with auto-filled items marked as "[Auto-filled from DESIGN.md]". The user can override any value.
+
+**Decision Rules injection**: The `decision_rules` array from the prefill MUST be included in the design_spec.md output as an additional subsection under "III. Visual Theme". These rules are binding constraints for the Executor during SVG generation.
+
 ### a. Canvas Format Confirmation
 
 Recommend format based on scenario (see Canvas Format Quick Reference above).
