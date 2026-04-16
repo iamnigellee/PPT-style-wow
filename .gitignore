@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Environment
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project workspace (user content, not tracked)
+projects/*/
+
+# History (local evolution data, not tracked)
+history/*/
+
+# Node fallback
+node_modules/
